@@ -4,5 +4,6 @@ Integrantes:
 - Cruzado Flores, Abel
 - Garcia Rosell Lara, Flavio Cesar
 - Perez Arteaga, Rodrigo Sebastián
-- Rodriguez Vega, Anie Geraldine
+- Rodriguez Vega, Anie Geraldine   
+
 Caso: Simulación de una tienda de componentes de PC.   
