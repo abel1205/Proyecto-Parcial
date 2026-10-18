@@ -37,9 +37,13 @@ class Venta:
         self.detalles.append(detalle)
 
     def calcular_total(self):
-        """Suma los subtotales de todos los productos."""
-        return sum(detalle.calcular_subtotal()
-            for detalle in self.detalles)
+    """Suma los subtotales de todos los productos."""
+    total = 0
+
+    for detalle in self.detalles:
+        total = total + detalle.calcular_subtotal()
+
+    return total
 
     def mostrar_resumen(self):
         """Devuelve un resumen de la venta."""
