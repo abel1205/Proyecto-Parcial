@@ -1,0 +1,8 @@
+Caso: Simulación de una tienda de componentes de PC.
+Distribución:
+- Cruzado Flores, Abel  - Clases principales y heredadas
+- Perez Arteaga, Rodrigo Sebastián - Inventario y almacenamiento
+- Rodriguez Vega, Anie Geraldine - Gestión de ventas
+- Garcia Rosell Lara, Flavio Cesar - Menú
+Presentación PPT
+Informe PDF
