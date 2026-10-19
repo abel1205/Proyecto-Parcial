@@ -1,5 +1,5 @@
 """
-Menu interactivo de la tienda de componentes de PC (con los 8 tipos de producto).
+Menu interactivo de la tienda de componentes de PC.
 
 """
 
