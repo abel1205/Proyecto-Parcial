@@ -4,7 +4,7 @@ Menu interactivo de la tienda de componentes de PC (con los 8 tipos de producto)
 """
 
 # ---------------------------------------------------------------
-# IMPORTACIONES: traemos las clases que ya hicieron los demas modulos
+# IMPORTACIONES
 # ---------------------------------------------------------------
 from clases_base import (Procesador, PlacaMadre, MemoriaRAM, TarjetaGrafica,
                          Almacenamiento, FuentePoder, Gabinete, Refrigeracion)
@@ -14,10 +14,6 @@ from inventario import Inventario
 
 # ---------------------------------------------------------------
 # TIPOS DE PRODUCTO
-# Tabla: nombre del tipo -> (clase, lista de datos propios del tipo).
-# Cada dato es (pregunta que se muestra, tipo de dato).
-# El orden es el mismo que usan los constructores de clases_base.py
-# (despues de codigo, nombre, marca, precio y modelo).
 # ---------------------------------------------------------------
 TIPOS = {
     "Procesador": (Procesador, [
@@ -53,8 +49,6 @@ TIPOS = {
 
 # ---------------------------------------------------------------
 # FUNCIONES AUXILIARES PARA PEDIR DATOS
-# Repiten la pregunta hasta que el usuario escribe algo valido,
-# asi el programa no se cae por un dato mal escrito.
 # ---------------------------------------------------------------
 def pedir_texto(mensaje):
     """Pide un texto que no este vacio."""
