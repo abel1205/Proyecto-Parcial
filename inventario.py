@@ -43,13 +43,11 @@ class RegistroStock: # Asocia un Producto con su cantidad, ubicacion y stock min
         validar_cantidad(stock_minimo, permitir_cero=True)
         self.__stock_minimo = stock_minimo
 
-    def ingresar(self, cantidad):
-        """Suma unidades recibidas en almacen."""
+    def ingresar(self, cantidad): # Suma unidades recibidas en almacen
         validar_cantidad(cantidad)
         self.__cantidad += cantidad
 
-    def retirar(self, cantidad):
-        """Resta unidades solo si existen suficientes."""
+    def retirar(self, cantidad): # Resta unidades solo si existen suficientes
         validar_cantidad(cantidad)
         if cantidad > self.__cantidad:
             raise ValueError(
@@ -62,15 +60,12 @@ class RegistroStock: # Asocia un Producto con su cantidad, ubicacion y stock min
         return self.__cantidad <= self.__stock_minimo
 
 
-class Almacen:
-    """Guarda registros de stock identificados por el codigo del producto."""
-
+class Almacen: # Guarda registros de stock identificados por el codigo del producto
     def __init__(self, nombre="Almacen principal"):
         self.__nombre = nombre
         self.__registros = {}  # codigo -> RegistroStock
 
-    def registrar_producto(self, producto, cantidad=0, ubicacion="Sin asignar", stock_minimo=2):
-        """Crea un registro de stock sin duplicar el codigo del producto."""
+    def registrar_producto(self, producto, cantidad=0, ubicacion="Sin asignar", stock_minimo=2): # Crea un registro de stock sin duplicar el codigo del producto
         if not isinstance(producto, Producto):
             raise TypeError("El elemento registrado debe ser un Producto.")
         codigo = producto.get_codigo()
@@ -78,12 +73,10 @@ class Almacen:
             raise ValueError(f"El producto {codigo} ya esta registrado.")
         self.__registros[codigo] = RegistroStock(producto, cantidad, ubicacion, stock_minimo)
 
-    def buscar_registro(self, codigo):
-        """Devuelve un RegistroStock, o None si no esta registrado."""
+    def buscar_registro(self, codigo): #  Devuelve un RegistroStock, o None si no esta registrado
         return self.__registros.get(codigo)
 
-    def obtener_registro(self, codigo):
-        """Busca un registro; genera error si no existe."""
+    def obtener_registro(self, codigo): # Busca un registro; genera error si no existe
         registro = self.buscar_registro(codigo)
         if registro is None:
             raise ValueError(f"No existe el producto {codigo} en el almacen.")
@@ -98,17 +91,14 @@ class Almacen:
     def cambiar_ubicacion(self, codigo, ubicacion):
         self.obtener_registro(codigo).set_ubicacion(ubicacion)
 
-    def listar_registros(self):
-        """Devuelve los registros ordenados por codigo, para mostrarlos en el menu."""
+    def listar_registros(self): # Devuelve los registros ordenados por codigo, para mostrarlos en el menu
         return [self.__registros[codigo] for codigo in sorted(self.__registros)]
 
     def productos_bajo_stock(self):
         return [r for r in self.listar_registros() if r.esta_bajo_minimo()]
 
 
-class Inventario:
-    """Coordina operaciones de almacen y verifica existencias antes de vender."""
-
+class Inventario: # Coordina operaciones de almacen y verifica existencias antes de vender
     def __init__(self, almacen=None):
         if almacen is not None and not isinstance(almacen, Almacen):
             raise TypeError("El inventario necesita un objeto Almacen.")
@@ -139,8 +129,7 @@ class Inventario:
     def alertas_stock(self):
         return self.__almacen.productos_bajo_stock()
 
-    def _cantidades_de_venta(self, venta):
-        """Suma cantidades por codigo (incluye productos repetidos en una venta)."""
+    def _cantidades_de_venta(self, venta): # Suma cantidades por codigo (incluye productos repetidos en una venta)
         if not isinstance(venta, Venta):
             raise TypeError("Se necesita un objeto Venta de gestion_venta.py.")
         if not venta.detalles:
@@ -159,8 +148,7 @@ class Inventario:
             cantidades[codigo] = cantidades.get(codigo, 0) + detalle.cantidad
         return cantidades
 
-    def verificar_venta(self, venta):
-        """Comprueba todas las existencias ANTES de modificar el stock."""
+    def verificar_venta(self, venta): # Comprueba todas las existencias ANTES de modificar el stock
         cantidades = self._cantidades_de_venta(venta)
         for codigo, cantidad in cantidades.items():
             disponibles = self.consultar_stock(codigo)
@@ -171,12 +159,8 @@ class Inventario:
                 )
         return cantidades
 
-    def registrar_venta(self, venta, gestion_ventas):
-        """Integra ventas e inventario: valida, registra venta y descuenta stock.
-
-        La prueba con los archivos del equipo es de un solo usuario (sin concurrencia).
-        La gestion de ventas existente se encarga de rechazar codigos de venta duplicados.
-        """
+    def registrar_venta(self, venta, gestion_ventas): #  """Integra ventas e inventario: valida, registra venta y descuenta stock. 
+        # La prueba con los archivos del equipo es de un solo usuario (sin concurrencia) La gestion de ventas existente se encarga de rechazar codigos de venta duplicados.
         if not isinstance(gestion_ventas, GestionVenta):
             raise TypeError("Se necesita un objeto GestionVenta de gestion_venta.py.")
         cantidades = self.verificar_venta(venta)
